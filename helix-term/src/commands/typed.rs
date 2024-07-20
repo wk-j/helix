@@ -2282,6 +2282,43 @@ fn pipe_impl(
     Ok(())
 }
 
+// Copy current file path into editor registers and system clipboard
+fn copy_relative_file_path(
+    cx: &mut compositor::Context,
+    args: &[Cow<str>],
+    event: PromptEvent,
+) -> anyhow::Result<()> {
+    if event != PromptEvent::Validate {
+        return Ok(());
+    }
+
+    let (_, doc) = current!(cx.editor);
+    let path = doc
+        .relative_path()
+        .map(|p| p.to_string_lossy().into_owned());
+
+    if let Some(path) = path {
+        cx.editor
+            .set_status(format!("Copied relative path: {}", path));
+
+        // Check if the user wants to copy to system clipboard
+        let use_clipboard = args.get(0).map_or(false, |arg| arg == "clipboard");
+
+        if use_clipboard {
+            cx.editor.registers.write('+', vec![path.clone()])?;
+            cx.editor
+                .set_status(format!("Copied relative path to clipboard: {}", path));
+        } else {
+            cx.editor.registers.write('"', vec![path])?;
+        }
+    } else {
+        cx.editor
+            .set_error("No relative path available for the current document");
+    }
+
+    Ok(())
+}
+
 // %{basename}	The name and extension of the currently focused file.
 // %{filename}	The absolute path of the currently focused file.
 // %{dirname}	The absolute path of the parent directory of the currently focused file.
@@ -3231,6 +3268,14 @@ pub const TYPABLE_COMMAND_LIST: &[TypableCommand] = &[
         aliases: &["r"],
         doc: "Load a file into buffer",
         fun: read,
+        signature: CommandSignature::positional(&[completers::filename]),
+    },
+
+    TypableCommand {
+        name: "copy-relative-file-path",
+        aliases: &["crfp"],
+        doc: "Copy the relative file path of the current buffer to the default register or system clipboard",
+        fun: copy_relative_file_path,
         signature: CommandSignature::positional(&[completers::filename]),
     },
 ];
