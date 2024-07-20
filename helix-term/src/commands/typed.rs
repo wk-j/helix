@@ -2282,6 +2282,91 @@ fn pipe_impl(
     Ok(())
 }
 
+// %{basename}	The name and extension of the currently focused file.
+// %{filename}	The absolute path of the currently focused file.
+// %{dirname}	The absolute path of the parent directory of the currently focused file.
+// %{cwd}	The absolute path of the current working directory of Helix.
+// %{linenumber}	The line number where the primary cursor is positioned.
+// %{selection}	The text selected by the primary cursor.
+// %sh{cmd}	Executes cmd with the default shell and returns the command output, if any.
+
+fn run_shell_command_with_variables(
+    cx: &mut compositor::Context,
+    args: &[Cow<str>],
+    event: PromptEvent,
+) -> anyhow::Result<()> {
+    if event != PromptEvent::Validate {
+        return Ok(());
+    }
+
+    let shell = cx.editor.config().shell.clone();
+    let args = args.join(" ");
+
+    let (view, doc) = current!(cx.editor);
+    let text = doc.text().slice(..);
+    let primary_selection = doc.selection(view.id).primary();
+    let cursor = primary_selection.cursor(text);
+
+    // Define variables
+    let variables = [
+        (
+            "%{basename}",
+            doc.path()
+                .and_then(|p| p.file_name().map(|s| s.to_string_lossy().into_owned()))
+                .unwrap_or_default(),
+        ),
+        (
+            "%{filename}",
+            doc.path()
+                .map(|p| p.to_string_lossy().into_owned())
+                .unwrap_or_default(),
+        ),
+        (
+            "%{dirname}",
+            doc.path()
+                .and_then(|p| p.parent().map(|s| s.to_string_lossy().into_owned()))
+                .unwrap_or_default(),
+        ),
+        (
+            "%{cwd}",
+            helix_stdx::env::current_working_dir()
+                .to_string_lossy()
+                .into_owned(),
+        ),
+        ("%{linenumber}", (text.char_to_line(cursor) + 1).to_string()),
+        ("%{selection}", primary_selection.fragment(text).to_string()),
+    ];
+
+    // Replace variables in the command
+    let mut command = args;
+    for (var, value) in &variables {
+        command = command.replace(var, value);
+    }
+
+    let callback = async move {
+        let output = shell_impl_async(&shell, &command, None).await?;
+        let call: job::Callback = Callback::EditorCompositor(Box::new(
+            move |editor: &mut Editor, compositor: &mut Compositor| {
+                if !output.is_empty() {
+                    let contents = ui::Markdown::new(
+                        format!("```sh\n{}\n```", output),
+                        editor.syn_loader.clone(),
+                    );
+                    let popup = Popup::new("shell", contents).position(Some(
+                        helix_core::Position::new(editor.cursor().0.unwrap_or_default().row, 2),
+                    ));
+                    compositor.replace_or_push("shell", popup);
+                }
+                editor.set_status("Command succeeded");
+            },
+        ));
+        Ok(call)
+    };
+    cx.jobs.callback(callback);
+
+    Ok(())
+}
+
 fn run_shell_command(
     cx: &mut compositor::Context,
     args: &[Cow<str>],
@@ -3091,6 +3176,13 @@ pub const TYPABLE_COMMAND_LIST: &[TypableCommand] = &[
         doc: "Pipe each selection to the shell command, ignoring output.",
         fun: pipe_to,
         signature: CommandSignature::none(),
+    },
+    TypableCommand {
+        name: "shv",
+        aliases: &["shv"],
+        doc: "Run a shell command with variables",
+        fun: run_shell_command_with_variables,
+        signature: CommandSignature::all(completers::filename)
     },
     TypableCommand {
         name: "run-shell-command",
