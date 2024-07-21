@@ -614,6 +614,12 @@ fn action_fixes_diagnostics(action: &CodeActionOrCommand) -> bool {
     )
 }
 
+// This function is used for C# only
+// Find xunit test method (method name) that annotated with [Fact] attribute
+// Then create custom code action menu (not lsp function)
+// When user exuecte menu just call command `:shv wk-screen -c dotnet test %{dirname} --filter .[method name]`
+pub fn xunit_code_action(cx: &mut Context) {}
+
 pub fn code_action(cx: &mut Context) {
     let (view, doc) = current!(cx.editor);
 

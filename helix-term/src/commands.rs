@@ -337,6 +337,7 @@ impl MappableCommand {
         file_picker, "Open file picker",
         file_picker_in_current_buffer_directory, "Open file picker at current buffer's directory",
         file_picker_in_current_directory, "Open file picker at current working directory",
+        xunit_code_action, "Perform xunit code action",
         code_action, "Perform code action",
         buffer_picker, "Open buffer picker",
         jumplist_picker, "Open jumplist picker",
@@ -5734,10 +5735,48 @@ fn shell(cx: &mut compositor::Context, cmd: &str, behavior: &ShellBehavior) {
     let shell = &config.shell;
     let (view, doc) = current!(cx.editor);
     let selection = doc.selection(view.id);
+    let text = doc.text().slice(..);
+    let primary_selection = doc.selection(view.id).primary();
+    let cursor = primary_selection.cursor(text);
+
+    // Define variables
+    let variables = [
+        (
+            "%{basename}",
+            doc.path()
+                .and_then(|p| p.file_name().map(|s| s.to_string_lossy().into_owned()))
+                .unwrap_or_default(),
+        ),
+        (
+            "%{filename}",
+            doc.path()
+                .map(|p| p.to_string_lossy().into_owned())
+                .unwrap_or_default(),
+        ),
+        (
+            "%{dirname}",
+            doc.path()
+                .and_then(|p| p.parent().map(|s| s.to_string_lossy().into_owned()))
+                .unwrap_or_default(),
+        ),
+        (
+            "%{cwd}",
+            helix_stdx::env::current_working_dir()
+                .to_string_lossy()
+                .into_owned(),
+        ),
+        ("%{linenumber}", (text.char_to_line(cursor) + 1).to_string()),
+        ("%{selection}", primary_selection.fragment(text).to_string()),
+    ];
+
+    // Replace variables in the command
+    let mut command = cmd.to_string();
+    for (var, value) in &variables {
+        command = command.replace(var, value);
+    }
 
     let mut changes = Vec::with_capacity(selection.len());
     let mut ranges = SmallVec::with_capacity(selection.len());
-    let text = doc.text().slice(..);
 
     let mut shell_output: Option<Tendril> = None;
     let mut offset = 0isize;
@@ -5746,7 +5785,7 @@ fn shell(cx: &mut compositor::Context, cmd: &str, behavior: &ShellBehavior) {
             output.clone()
         } else {
             let input = range.slice(text);
-            match shell_impl(shell, cmd, pipe.then(|| input.into())) {
+            match shell_impl(shell, &command, pipe.then(|| input.into())) {
                 Ok(mut output) => {
                     if !input.ends_with("\n") && !output.is_empty() && output.ends_with('\n') {
                         output.pop();
