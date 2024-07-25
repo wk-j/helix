@@ -2325,7 +2325,7 @@ fn copy_relative_file_path(
 // %{cwd}	The absolute path of the current working directory of Helix.
 // %{linenumber}	The line number where the primary cursor is positioned.
 // %{selection}	The text selected by the primary cursor.
-// %sh{cmd}	Executes cmd with the default shell and returns the command output, if any.
+// %{symbol} The current function name or symbol under the primary cursor.
 
 fn run_shell_command_with_variables(
     cx: &mut compositor::Context,
@@ -2372,6 +2372,11 @@ fn run_shell_command_with_variables(
         ),
         ("%{linenumber}", (text.char_to_line(cursor) + 1).to_string()),
         ("%{selection}", primary_selection.fragment(text).to_string()),
+        (
+            "%{symbol}",
+            find_function_name(doc.syntax(), text, cursor)
+                .unwrap_or_else(|| "".to_string()),
+        ),
     ];
 
     // Replace variables in the command
@@ -2402,6 +2407,16 @@ fn run_shell_command_with_variables(
     cx.jobs.callback(callback);
 
     Ok(())
+}
+
+fn find_function_name(
+    syntax: Option<&Syntax>,
+    text: RopeSlice,
+    cursor: usize,
+) -> Option<String> {
+    let syntax = syntax?;
+    let node = find_function_node(syntax, text, cursor)?;
+    extract_function_name(node, text).ok()
 }
 
 fn run_shell_command(
@@ -2569,6 +2584,92 @@ fn move_buffer(
     Ok(())
 }
 
+// Find the function scope at the cursor position and yank the function name
+fn yank_function_name(
+    cx: &mut compositor::Context,
+    args: &[Cow<str>],
+    event: PromptEvent,
+) -> anyhow::Result<()> {
+    if event != PromptEvent::Validate {
+        return Ok(());
+    }
+
+    let (view, doc) = current!(cx.editor);
+    let syntax = doc
+        .syntax()
+        .ok_or_else(|| anyhow!("No syntax tree available"))?;
+    let text = doc.text().slice(..);
+    let cursor = doc.selection(view.id).primary().cursor(text);
+
+    let node = find_function_node(syntax, text, cursor)
+        .ok_or_else(|| anyhow!("No function found at cursor position"))?;
+
+    let function_name = extract_function_name(node, text)?;
+
+    let register = args.first().and_then(|s| s.chars().next()).unwrap_or('"');
+    cx.editor
+        .registers
+        .write(register, vec![function_name.clone()])?;
+
+    cx.editor.set_status(format!(
+        "Yanked function name '{}' to register {}",
+        function_name, register
+    ));
+
+    Ok(())
+}
+
+fn find_function_node<'a>(
+    syntax: &'a Syntax,
+    text: RopeSlice<'a>,
+    cursor: usize,
+) -> Option<helix_core::tree_sitter::Node<'a>> {
+    let cursor_point = helix_core::tree_sitter::Point::new(
+        text.char_to_line(cursor),
+        cursor - text.line_to_char(text.char_to_line(cursor)),
+    );
+
+    syntax
+        .tree()
+        .root_node()
+        .descendant_for_point_range(cursor_point, cursor_point)
+        .and_then(|node| {
+            node.parent().and_then(|parent| {
+                if matches!(
+                    parent.kind(),
+                    "function_definition"
+                        | "method_definition"
+                        | "function_declaration"
+                        | "method_declaration"
+                ) {
+                    Some(parent)
+                } else {
+                    parent.parent()
+                }
+            })
+        })
+}
+
+fn extract_function_name(
+    node: helix_core::tree_sitter::Node,
+    text: RopeSlice,
+) -> anyhow::Result<String> {
+    let name_field = match node.kind() {
+        "function_definition" | "method_definition" => "name",
+        "function_declaration" => "declarator",
+        "method_declaration" => "name",
+        _ => return Err(anyhow!("Unexpected node type for function")),
+    };
+
+    let name_node = node
+        .child_by_field_name(name_field)
+        .ok_or_else(|| anyhow!("Function name not found"))?;
+
+    let text_str = text.slice(..).to_string();
+    let name = name_node.utf8_text(text_str.as_bytes())?;
+    Ok(name.to_string())
+}
+
 fn yank_diagnostic(
     cx: &mut compositor::Context,
     args: &[Cow<str>],
@@ -2643,6 +2744,13 @@ fn read(cx: &mut compositor::Context, args: &[Cow<str>], event: PromptEvent) -> 
 }
 
 pub const TYPABLE_COMMAND_LIST: &[TypableCommand] = &[
+    TypableCommand {
+        name: "yank-function-name",
+        aliases: &["yfn"],
+        doc: "Yank the name of the function under the cursor",
+        fun: yank_function_name,
+        signature: CommandSignature::all(completers::register),
+    },
     TypableCommand {
         name: "quit",
         aliases: &["q"],
