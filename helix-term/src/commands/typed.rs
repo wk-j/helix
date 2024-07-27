@@ -432,6 +432,32 @@ fn force_write_buffer_close(
     buffer_close_by_ids_impl(cx, &document_ids, false)
 }
 
+// wk-j
+fn new_file_at_current_buffer_directory(
+    cx: &mut compositor::Context,
+    args: &[Cow<str>],
+    event: PromptEvent,
+) -> anyhow::Result<()> {
+    if event != PromptEvent::Validate {
+        return Ok(());
+    }
+
+    let (_, doc) = current!(cx.editor);
+    let current_dir = doc
+        .path()
+        .and_then(|path| path.parent())
+        .unwrap_or_else(|| std::path::Path::new(""));
+
+    if args.is_empty() {
+        cx.editor.new_file(Action::Replace);
+    } else {
+        let new_path = current_dir.join(args[0].as_ref());
+        cx.editor.open(&new_path, Action::Replace)?;
+    }
+
+    Ok(())
+}
+
 fn new_file(
     cx: &mut compositor::Context,
     _args: &[Cow<str>],
@@ -2374,8 +2400,7 @@ fn run_shell_command_with_variables(
         ("%{selection}", primary_selection.fragment(text).to_string()),
         (
             "%{symbol}",
-            find_function_name(doc.syntax(), text, cursor)
-                .unwrap_or_else(|| "".to_string()),
+            find_function_name(doc.syntax(), text, cursor).unwrap_or_else(|| "".to_string()),
         ),
     ];
 
@@ -2409,11 +2434,7 @@ fn run_shell_command_with_variables(
     Ok(())
 }
 
-fn find_function_name(
-    syntax: Option<&Syntax>,
-    text: RopeSlice,
-    cursor: usize,
-) -> Option<String> {
+fn find_function_name(syntax: Option<&Syntax>, text: RopeSlice, cursor: usize) -> Option<String> {
     let syntax = syntax?;
     let node = find_function_node(syntax, text, cursor)?;
     extract_function_name(node, text).ok()
@@ -2744,6 +2765,13 @@ fn read(cx: &mut compositor::Context, args: &[Cow<str>], event: PromptEvent) -> 
 }
 
 pub const TYPABLE_COMMAND_LIST: &[TypableCommand] = &[
+    TypableCommand {
+        name: "new-file-at-current-buffer-directory",
+        aliases: &["nb"],
+        doc: "Create a new file in the directory of the current buffer. If a name is provided, it creates a file with that name.",
+        fun: new_file_at_current_buffer_directory,
+        signature: CommandSignature::positional(&[completers::filename]),
+    },
     TypableCommand {
         name: "yank-function-name",
         aliases: &["yfn"],
