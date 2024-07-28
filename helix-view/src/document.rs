@@ -106,6 +106,7 @@ impl Serialize for Mode {
 #[derive(Debug, Clone)]
 pub struct DocumentSavedEvent {
     pub revision: usize,
+    pub save_time: SystemTime,
     pub doc_id: DocumentId,
     pub path: PathBuf,
     pub text: Rope,
@@ -933,6 +934,9 @@ impl Document {
                     "Path is read only"
                 ));
             }
+
+            // Assume it is a hardlink to prevent data loss if the metadata cant be read (e.g. on certain Windows configurations)
+            let is_hardlink = helix_stdx::faccess::hardlink_count(&write_path).unwrap_or(2) > 1;
             let backup = if path.exists() {
                 let path_ = write_path.clone();
                 // hacks: we use tempfile to handle the complex task of creating
@@ -941,14 +945,22 @@ impl Document {
                 // since the path doesn't exist yet, we just want
                 // the path
                 tokio::task::spawn_blocking(move || -> Option<PathBuf> {
-                    tempfile::Builder::new()
-                        .prefix(path_.file_name()?)
-                        .suffix(".bck")
-                        .make_in(path_.parent()?, |backup| std::fs::rename(&path_, backup))
-                        .ok()?
-                        .into_temp_path()
-                        .keep()
-                        .ok()
+                    let mut builder = tempfile::Builder::new();
+                    builder.prefix(path_.file_name()?).suffix(".bck");
+
+                    let backup_path = if is_hardlink {
+                        builder
+                            .make_in(path_.parent()?, |backup| std::fs::copy(&path_, backup))
+                            .ok()?
+                            .into_temp_path()
+                    } else {
+                        builder
+                            .make_in(path_.parent()?, |backup| std::fs::rename(&path_, backup))
+                            .ok()?
+                            .into_temp_path()
+                    };
+
+                    backup_path.keep().ok()
                 })
                 .await
                 .ok()
@@ -965,8 +977,29 @@ impl Document {
             }
             .await;
 
+            let save_time = match fs::metadata(&write_path).await {
+                Ok(metadata) => metadata.modified().map_or(SystemTime::now(), |mtime| mtime),
+                Err(_) => SystemTime::now(),
+            };
+
             if let Some(backup) = backup {
-                if write_result.is_err() {
+                if is_hardlink {
+                    let mut delete = true;
+                    if write_result.is_err() {
+                        // Restore backup
+                        let _ = tokio::fs::copy(&backup, &write_path).await.map_err(|e| {
+                            delete = false;
+                            log::error!("Failed to restore backup on write failure: {e}")
+                        });
+                    }
+
+                    if delete {
+                        // Delete backup
+                        let _ = tokio::fs::remove_file(backup)
+                            .await
+                            .map_err(|e| log::error!("Failed to remove backup file on write: {e}"));
+                    }
+                } else if write_result.is_err() {
                     // restore backup
                     let _ = tokio::fs::rename(&backup, &write_path)
                         .await
@@ -987,6 +1020,7 @@ impl Document {
 
             let event = DocumentSavedEvent {
                 revision: current_rev,
+                save_time,
                 doc_id,
                 path,
                 text: text.clone(),
@@ -1045,6 +1079,26 @@ impl Document {
         }
     }
 
+    pub fn pickup_last_saved_time(&mut self) {
+        self.last_saved_time = match self.path.as_mut().unwrap().metadata() {
+            Ok(metadata) => match metadata.modified() {
+                Ok(mtime) => mtime,
+                Err(_) => {
+                    log::error!(
+                        "Use a system time instead of fs' mtime not supported on this platform"
+                    );
+                    SystemTime::now()
+                }
+            },
+            Err(e) => {
+                log::error!(
+                    "Use a system time instead of fs' mtime: failed to file's metadata: {e}"
+                );
+                SystemTime::now()
+            }
+        };
+    }
+
     // Detect if the file is readonly and change the readonly field if necessary (unix only)
     pub fn detect_readonly(&mut self) {
         // Allows setting the flag for files the user cannot modify, like root files
@@ -1082,9 +1136,7 @@ impl Document {
         self.apply(&transaction, view.id);
         self.append_changes_to_history(view);
         self.reset_modified();
-
-        self.last_saved_time = SystemTime::now();
-
+        self.pickup_last_saved_time();
         self.detect_indent_and_line_ending();
 
         match provider_registry.get_diff_base(&path) {
@@ -1123,6 +1175,7 @@ impl Document {
         self.path = path;
 
         self.detect_readonly();
+        self.pickup_last_saved_time();
     }
 
     /// Set the programming language for the file and load associated data (e.g. highlighting)
@@ -1603,7 +1656,7 @@ impl Document {
     }
 
     /// Set the document's latest saved revision to the given one.
-    pub fn set_last_saved_revision(&mut self, rev: usize) {
+    pub fn set_last_saved_revision(&mut self, rev: usize, save_time: SystemTime) {
         log::debug!(
             "doc {} revision updated {} -> {}",
             self.id,
@@ -1611,7 +1664,7 @@ impl Document {
             rev
         );
         self.last_saved_revision = rev;
-        self.last_saved_time = SystemTime::now();
+        self.last_saved_time = save_time;
     }
 
     /// Get the document's latest saved revision.
