@@ -1941,6 +1941,8 @@ fn select_regex(cx: &mut Context) {
                 selection::select_on_matches(text, doc.selection(view.id), &regex)
             {
                 doc.set_selection(view.id, selection);
+            } else {
+                cx.editor.set_error("nothing selected");
             }
         },
     );
@@ -2877,7 +2879,8 @@ fn file_browser_in_current_buffer_directory(cx: &mut Context) {
     let path = match doc_dir {
         Some(path) => path,
         None => {
-            cx.editor.set_error("Current buffer has no path or parent directory");
+            cx.editor
+                .set_error("Current buffer has no path or parent directory");
             return;
         }
     };
@@ -4655,6 +4658,8 @@ fn keep_or_remove_selections_impl(cx: &mut Context, remove: bool) {
                 selection::keep_or_remove_matches(text, doc.selection(view.id), &regex, remove)
             {
                 doc.set_selection(view.id, selection);
+            } else {
+                cx.editor.set_error("no selections remaining");
             }
         },
     )
@@ -5754,19 +5759,14 @@ async fn shell_impl_async(
                 None => bail!("Shell command failed"),
             }
         }
-        let err = std::str::from_utf8(&output.stderr)
-            .map_err(|_| anyhow!("Process did not output valid UTF-8"))?;
-        log::error!("Shell error: {err}");
-        err
+        String::from_utf8_lossy(&output.stderr)
         // Prioritize `stderr` output over `stdout`
     } else if !output.stderr.is_empty() {
-        let err = std::str::from_utf8(&output.stderr)
-            .map_err(|_| anyhow!("Process did not output valid UTF-8"))?;
-        log::debug!("Command printed to stderr: {err}");
-        err
+        let stderr = String::from_utf8_lossy(&output.stderr);
+        log::debug!("Command printed to stderr: {stderr}");
+        stderr
     } else {
-        std::str::from_utf8(&output.stdout)
-            .map_err(|_| anyhow!("Process did not output valid UTF-8"))?
+        String::from_utf8_lossy(&output.stdout)
     };
 
     Ok(Tendril::from(output))
