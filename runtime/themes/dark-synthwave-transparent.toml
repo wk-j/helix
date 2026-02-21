@@ -1,0 +1,17 @@
+# Dark Synthwave Transparent
+# Based on dark-synthwave with transparent backgrounds for use with terminal opacity/blur
+
+inherits = "dark-synthwave"
+
+"ui.background" = { fg = "blood-red" }
+"ui.statusline" = { fg = "white" }
+"ui.statusline.inactive" = { fg = "grey" }
+"ui.popup" = { fg = "#f8f8f0" }
+"ui.popup.info" = { fg = "synth-red" }
+"ui.help" = { fg = "#f8f8f0" }
+"ui.menu" = { fg = "white" }
+"ui.menu.selected" = { fg = "dark-grey", bg = "synth-red" }
+"ui.bufferline" = { fg = "grey" }
+"ui.bufferline.active" = { fg = "dark-grey", bg = "synth-red" }
+"ui.selection" = { bg = "#4a2080" }
+"ui.selection.primary" = { bg = "#4a2080" }

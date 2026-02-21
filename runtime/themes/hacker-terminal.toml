@@ -1,0 +1,184 @@
+# Hacker Terminal
+# Green phosphor CRT monitor aesthetic - like the terminals in The Matrix, WarGames, Hackers
+# Transparent background for terminal blur/opacity effects
+
+# Syntax highlighting - all greens with varying intensity
+"comment" = { fg = "dim-green", modifiers = ["italic"] }
+"comment.block.documentation" = { fg = "mid-green", modifiers = ["italic"] }
+
+"variable" = "bright-green"
+"variable.builtin" = { fg = "hot-green", modifiers = ["bold"] }
+"variable.parameter" = { fg = "phosphor", modifiers = ["italic"] }
+"variable.other.member" = "phosphor"
+
+"constant" = "amber"
+"constant.builtin" = { fg = "hot-amber", modifiers = ["bold"] }
+"constant.character" = "amber"
+"constant.character.escape" = { fg = "hot-amber", modifiers = ["bold"] }
+"constant.numeric" = "amber"
+
+"type" = { fg = "hot-amber", modifiers = ["bold"] }
+"type.builtin" = { fg = "hot-amber", modifiers = ["bold"] }
+"type.enum.variant" = "amber"
+
+"constructor" = { fg = "hot-amber", modifiers = ["bold"] }
+
+"function" = { fg = "bright-green", modifiers = ["bold"] }
+"function.builtin" = { fg = "hot-green", modifiers = ["bold"] }
+"function.method" = { fg = "bright-green", modifiers = ["bold"] }
+"function.macro" = { fg = "cyan-green", modifiers = ["bold", "italic"] }
+
+"string" = "phosphor"
+"string.regexp" = "cyan-green"
+"string.special" = "bright-green"
+"string.special.symbol" = "cyan-green"
+"string.special.url" = { fg = "cyan-green", modifiers = ["underlined"] }
+
+"keyword" = { fg = "hot-green", modifiers = ["bold"] }
+"keyword.control" = { fg = "hot-green", modifiers = ["bold"] }
+"keyword.control.conditional" = { fg = "hot-green", modifiers = ["bold"] }
+"keyword.control.repeat" = { fg = "hot-green", modifiers = ["bold"] }
+"keyword.control.import" = { fg = "cyan-green", modifiers = ["bold"] }
+"keyword.control.return" = { fg = "warn-amber", modifiers = ["bold"] }
+"keyword.control.exception" = { fg = "warn-amber", modifiers = ["bold"] }
+"keyword.operator" = "bright-green"
+"keyword.function" = { fg = "hot-green", modifiers = ["bold", "italic"] }
+"keyword.storage" = { fg = "hot-green", modifiers = ["bold"] }
+"keyword.storage.modifier" = { fg = "bright-green", modifiers = ["italic"] }
+
+"operator" = "bright-green"
+"punctuation" = "mid-green"
+"punctuation.special" = "bright-green"
+"punctuation.bracket" = "mid-green"
+"punctuation.delimiter" = "mid-green"
+
+"label" = { fg = "cyan-green", modifiers = ["italic"] }
+"namespace" = { fg = "amber", modifiers = ["italic"] }
+"special" = "cyan-green"
+
+"tag" = "bright-green"
+"tag.builtin" = { fg = "hot-green", modifiers = ["bold"] }
+"attribute" = { fg = "amber", modifiers = ["italic"] }
+
+# Markup
+"markup.heading" = { fg = "hot-green", modifiers = ["bold"] }
+"markup.heading.marker" = { fg = "mid-green", modifiers = ["bold"] }
+"markup.heading.1" = { fg = "hot-amber", modifiers = ["bold"] }
+"markup.heading.2" = { fg = "amber", modifiers = ["bold"] }
+"markup.heading.3" = { fg = "phosphor", modifiers = ["bold"] }
+"markup.heading.4" = { fg = "cyan-green", modifiers = ["bold"] }
+"markup.heading.5" = { fg = "mid-green", modifiers = ["bold"] }
+"markup.heading.6" = { fg = "mid-green", modifiers = ["bold"] }
+"markup.list" = "bright-green"
+"markup.bold" = { fg = "hot-green", modifiers = ["bold"] }
+"markup.italic" = { fg = "phosphor", modifiers = ["italic"] }
+"markup.strikethrough" = { modifiers = ["crossed_out"] }
+"markup.link.url" = { fg = "cyan-green", modifiers = ["underlined"] }
+"markup.link.text" = "bright-green"
+"markup.quote" = { fg = "phosphor", modifiers = ["italic"] }
+"markup.raw" = { fg = "cyan-green", bg = "#0a1f0a" }
+"markup.raw.inline" = { fg = "cyan-green" }
+"markup.raw.block" = { fg = "cyan-green", bg = "#0a1f0a" }
+
+# Diff
+"diff.plus" = "hot-green"
+"diff.plus.gutter" = "hot-green"
+"diff.minus" = "warn-amber"
+"diff.minus.gutter" = "warn-amber"
+"diff.delta" = "cyan-green"
+"diff.delta.gutter" = "cyan-green"
+"diff.delta.moved" = "mid-green"
+
+# UI - transparent background, phosphor green everywhere
+"ui.background" = { fg = "bright-green" }
+"ui.background.separator" = { fg = "dark-green" }
+
+"ui.cursor" = { fg = "black", bg = "hot-green" }
+"ui.cursor.normal" = { fg = "black", bg = "hot-green" }
+"ui.cursor.insert" = { fg = "black", bg = "bright-green" }
+"ui.cursor.select" = { fg = "black", bg = "cyan-green" }
+"ui.cursor.match" = { fg = "black", bg = "mid-green" }
+"ui.cursor.primary" = { fg = "black", bg = "hot-green" }
+"ui.cursor.primary.normal" = { fg = "black", bg = "hot-green" }
+"ui.cursor.primary.insert" = { fg = "black", bg = "bright-green" }
+"ui.cursor.primary.select" = { fg = "black", bg = "cyan-green" }
+
+"ui.cursorline.primary" = { }
+"ui.cursorline.secondary" = { }
+"ui.cursorcolumn.primary" = { bg = "#0a1f0a" }
+
+"ui.linenr" = { fg = "dark-green" }
+"ui.linenr.selected" = { fg = "bright-green", modifiers = ["bold"] }
+
+"ui.statusline" = { fg = "bright-green" }
+"ui.statusline.inactive" = { fg = "dark-green" }
+"ui.statusline.normal" = { fg = "black", bg = "hot-green", modifiers = ["bold"] }
+"ui.statusline.insert" = { fg = "black", bg = "bright-green", modifiers = ["bold"] }
+"ui.statusline.select" = { fg = "black", bg = "cyan-green", modifiers = ["bold"] }
+"ui.statusline.separator" = "dark-green"
+
+"ui.popup" = { fg = "bright-green" }
+"ui.popup.info" = { fg = "hot-green" }
+"ui.window" = { fg = "dark-green" }
+"ui.help" = { fg = "bright-green" }
+
+"ui.text" = "bright-green"
+"ui.text.focus" = { fg = "hot-green", modifiers = ["bold"] }
+"ui.text.inactive" = "dim-green"
+"ui.text.info" = "cyan-green"
+
+"ui.virtual.ruler" = { bg = "#0a1f0a" }
+"ui.virtual.whitespace" = "dark-green"
+"ui.virtual.indent-guide" = "dark-green"
+"ui.virtual.inlay-hint" = { fg = "dim-green" }
+"ui.virtual.inlay-hint.parameter" = { fg = "dim-green" }
+"ui.virtual.inlay-hint.type" = { fg = "dim-green" }
+"ui.virtual.wrap" = "dark-green"
+"ui.virtual.jump-label" = { fg = "hot-green", modifiers = ["bold", "underlined"] }
+
+"ui.selection" = { bg = "#0f3a0f" }
+"ui.selection.primary" = { bg = "#144a14" }
+
+"ui.highlight" = { bg = "#0f3a0f", modifiers = ["bold"] }
+
+"ui.menu" = { fg = "bright-green" }
+"ui.menu.selected" = { fg = "black", bg = "bright-green", modifiers = ["bold"] }
+"ui.menu.scroll" = { fg = "mid-green" }
+
+"ui.bufferline" = { fg = "dim-green" }
+"ui.bufferline.active" = { fg = "black", bg = "bright-green", modifiers = ["bold"] }
+"ui.bufferline.background" = { }
+
+"ui.picker" = { fg = "bright-green" }
+"ui.picker.header.column.active" = { fg = "hot-green", modifiers = ["bold"] }
+
+# Diagnostics - keep the hacker vibe, amber for warnings/errors
+"diagnostic.error" = { underline = { color = "error-red", style = "curl" } }
+"diagnostic.warning" = { underline = { color = "warn-amber", style = "curl" } }
+"diagnostic.info" = { underline = { color = "cyan-green", style = "curl" } }
+"diagnostic.hint" = { underline = { color = "dim-green", style = "curl" } }
+
+"error" = "error-red"
+"warning" = "warn-amber"
+"info" = "cyan-green"
+"hint" = "dim-green"
+"debug" = "mid-green"
+
+[palette]
+# Phosphor green shades - like a CRT monitor
+black       = "#000000"
+dark-green  = "#0a3a0a"  # barely visible, scanline territory
+dim-green   = "#1a6b1a"  # comments, inactive elements
+mid-green   = "#2d9b2d"  # punctuation, secondary syntax
+phosphor    = "#33cc33"  # strings, parameters - classic phosphor
+bright-green= "#39ff14"  # main text - neon terminal green
+hot-green   = "#00ff41"  # keywords, important elements - Matrix green
+cyan-green  = "#00e5a0"  # special accents, slight cyan shift
+
+# Amber/orange accents - like a dual phosphor CRT
+amber       = "#ff9b00"  # types, constants, attributes - warm orange
+hot-amber   = "#ffb627"  # bright orange - type builtins, constructors, headings
+
+# Minimal non-green accents for critical UI only
+warn-amber  = "#cc8800"  # warnings, errors - amber CRT style
+error-red   = "#cc3300"  # errors only - subtle red
