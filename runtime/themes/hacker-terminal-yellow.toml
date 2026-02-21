@@ -1,0 +1,192 @@
+# Hacker Terminal Yellow
+# Yellow/amber phosphor CRT monitor aesthetic - vintage amber terminal vibes
+# Transparent background for terminal blur/opacity effects
+# Enhanced with accent colors for better contrast and readability
+
+# Syntax highlighting - yellow base with contrasting accents
+"comment" = { fg = "dim-yellow", modifiers = ["italic"] }
+"comment.block.documentation" = { fg = "mid-yellow", modifiers = ["italic"] }
+
+"variable" = "bright-yellow"
+"variable.builtin" = { fg = "hot-yellow", modifiers = ["bold"] }
+"variable.parameter" = { fg = "peach", modifiers = ["italic"] }
+"variable.other.member" = "light-cyan"
+
+"constant" = "magenta"
+"constant.builtin" = { fg = "hot-pink", modifiers = ["bold"] }
+"constant.character" = "magenta"
+"constant.character.escape" = { fg = "hot-pink", modifiers = ["bold"] }
+"constant.numeric" = "magenta"
+
+"type" = { fg = "light-cyan", modifiers = ["bold"] }
+"type.builtin" = { fg = "sky-blue", modifiers = ["bold"] }
+"type.enum.variant" = "light-cyan"
+
+"constructor" = { fg = "sky-blue", modifiers = ["bold"] }
+
+"function" = { fg = "lime", modifiers = ["bold"] }
+"function.builtin" = { fg = "mint", modifiers = ["bold"] }
+"function.method" = { fg = "lime", modifiers = ["bold"] }
+"function.macro" = { fg = "hot-pink", modifiers = ["bold", "italic"] }
+
+"string" = "peach"
+"string.regexp" = "hot-pink"
+"string.special" = "orange"
+"string.special.symbol" = "magenta"
+"string.special.url" = { fg = "sky-blue", modifiers = ["underlined"] }
+
+"keyword" = { fg = "hot-yellow", modifiers = ["bold"] }
+"keyword.control" = { fg = "hot-yellow", modifiers = ["bold"] }
+"keyword.control.conditional" = { fg = "hot-yellow", modifiers = ["bold"] }
+"keyword.control.repeat" = { fg = "hot-yellow", modifiers = ["bold"] }
+"keyword.control.import" = { fg = "sky-blue", modifiers = ["bold"] }
+"keyword.control.return" = { fg = "hot-pink", modifiers = ["bold"] }
+"keyword.control.exception" = { fg = "error-red", modifiers = ["bold"] }
+"keyword.operator" = "bright-yellow"
+"keyword.function" = { fg = "hot-yellow", modifiers = ["bold", "italic"] }
+"keyword.storage" = { fg = "orange", modifiers = ["bold"] }
+"keyword.storage.modifier" = { fg = "orange", modifiers = ["italic"] }
+
+"operator" = "bright-yellow"
+"punctuation" = "mid-yellow"
+"punctuation.special" = "orange"
+"punctuation.bracket" = "mid-yellow"
+"punctuation.delimiter" = "mid-yellow"
+
+"label" = { fg = "mint", modifiers = ["italic"] }
+"namespace" = { fg = "sky-blue", modifiers = ["italic"] }
+"special" = "hot-pink"
+
+"tag" = "lime"
+"tag.builtin" = { fg = "mint", modifiers = ["bold"] }
+"attribute" = { fg = "peach", modifiers = ["italic"] }
+
+# Markup
+"markup.heading" = { fg = "hot-yellow", modifiers = ["bold"] }
+"markup.heading.marker" = { fg = "mid-yellow", modifiers = ["bold"] }
+"markup.heading.1" = { fg = "hot-yellow", modifiers = ["bold"] }
+"markup.heading.2" = { fg = "lime", modifiers = ["bold"] }
+"markup.heading.3" = { fg = "sky-blue", modifiers = ["bold"] }
+"markup.heading.4" = { fg = "magenta", modifiers = ["bold"] }
+"markup.heading.5" = { fg = "peach", modifiers = ["bold"] }
+"markup.heading.6" = { fg = "mid-yellow", modifiers = ["bold"] }
+"markup.list" = "orange"
+"markup.bold" = { fg = "hot-yellow", modifiers = ["bold"] }
+"markup.italic" = { fg = "peach", modifiers = ["italic"] }
+"markup.strikethrough" = { modifiers = ["crossed_out"] }
+"markup.link.url" = { fg = "sky-blue", modifiers = ["underlined"] }
+"markup.link.text" = "light-cyan"
+"markup.quote" = { fg = "peach", modifiers = ["italic"] }
+"markup.raw" = { fg = "mint", bg = "#1f1a0a" }
+"markup.raw.inline" = { fg = "mint" }
+"markup.raw.block" = { fg = "mint", bg = "#1f1a0a" }
+
+# Diff
+"diff.plus" = "lime"
+"diff.plus.gutter" = "lime"
+"diff.minus" = "error-red"
+"diff.minus.gutter" = "error-red"
+"diff.delta" = "sky-blue"
+"diff.delta.gutter" = "sky-blue"
+"diff.delta.moved" = "light-cyan"
+
+# UI - transparent background, amber/yellow phosphor base
+"ui.background" = { fg = "bright-yellow" }
+"ui.background.separator" = { fg = "dark-yellow" }
+
+"ui.cursor" = { fg = "black", bg = "hot-yellow" }
+"ui.cursor.normal" = { fg = "black", bg = "hot-yellow" }
+"ui.cursor.insert" = { fg = "black", bg = "lime" }
+"ui.cursor.select" = { fg = "black", bg = "sky-blue" }
+"ui.cursor.match" = { fg = "black", bg = "mid-yellow" }
+"ui.cursor.primary" = { fg = "black", bg = "hot-yellow" }
+"ui.cursor.primary.normal" = { fg = "black", bg = "hot-yellow" }
+"ui.cursor.primary.insert" = { fg = "black", bg = "lime" }
+"ui.cursor.primary.select" = { fg = "black", bg = "sky-blue" }
+
+"ui.cursorline.primary" = { }
+"ui.cursorline.secondary" = { }
+"ui.cursorcolumn.primary" = { bg = "#1f1a0a" }
+
+"ui.linenr" = { fg = "dark-yellow" }
+"ui.linenr.selected" = { fg = "bright-yellow", modifiers = ["bold"] }
+
+"ui.statusline" = { fg = "bright-yellow" }
+"ui.statusline.inactive" = { fg = "dark-yellow" }
+"ui.statusline.normal" = { fg = "black", bg = "hot-yellow", modifiers = ["bold"] }
+"ui.statusline.insert" = { fg = "black", bg = "lime", modifiers = ["bold"] }
+"ui.statusline.select" = { fg = "black", bg = "sky-blue", modifiers = ["bold"] }
+"ui.statusline.separator" = "dark-yellow"
+
+"ui.popup" = { fg = "bright-yellow" }
+"ui.popup.info" = { fg = "hot-yellow" }
+"ui.window" = { fg = "dark-yellow" }
+"ui.help" = { fg = "bright-yellow" }
+
+"ui.text" = "bright-yellow"
+"ui.text.focus" = { fg = "hot-yellow", modifiers = ["bold"] }
+"ui.text.inactive" = "dim-yellow"
+"ui.text.info" = "light-cyan"
+
+"ui.virtual.ruler" = { bg = "#1f1a0a" }
+"ui.virtual.whitespace" = "dark-yellow"
+"ui.virtual.indent-guide" = "dark-yellow"
+"ui.virtual.inlay-hint" = { fg = "dim-yellow" }
+"ui.virtual.inlay-hint.parameter" = { fg = "dim-yellow" }
+"ui.virtual.inlay-hint.type" = { fg = "dim-yellow" }
+"ui.virtual.wrap" = "dark-yellow"
+"ui.virtual.jump-label" = { fg = "hot-pink", modifiers = ["bold", "underlined"] }
+
+"ui.selection" = { bg = "#3a300f" }
+"ui.selection.primary" = { bg = "#4a3d14" }
+
+"ui.highlight" = { bg = "#3a300f", modifiers = ["bold"] }
+
+"ui.menu" = { fg = "bright-yellow" }
+"ui.menu.selected" = { fg = "black", bg = "bright-yellow", modifiers = ["bold"] }
+"ui.menu.scroll" = { fg = "mid-yellow" }
+
+"ui.bufferline" = { fg = "dim-yellow" }
+"ui.bufferline.active" = { fg = "black", bg = "bright-yellow", modifiers = ["bold"] }
+"ui.bufferline.background" = { }
+
+"ui.picker" = { fg = "bright-yellow" }
+"ui.picker.header.column.active" = { fg = "hot-yellow", modifiers = ["bold"] }
+
+# Diagnostics
+"diagnostic.error" = { underline = { color = "error-red", style = "curl" } }
+"diagnostic.warning" = { underline = { color = "orange", style = "curl" } }
+"diagnostic.info" = { underline = { color = "sky-blue", style = "curl" } }
+"diagnostic.hint" = { underline = { color = "dim-yellow", style = "curl" } }
+
+"error" = "error-red"
+"warning" = "orange"
+"info" = "sky-blue"
+"hint" = "dim-yellow"
+"debug" = "mint"
+
+[palette]
+# Yellow/amber base - vintage amber CRT phosphor
+black        = "#000000"
+dark-yellow  = "#3a2a0a"  # barely visible, scanline territory
+dim-yellow   = "#6b5a1a"  # comments, inactive elements
+mid-yellow   = "#9b8a2d"  # punctuation, secondary syntax
+bright-yellow= "#ffd700"  # main text - gold terminal yellow
+hot-yellow   = "#ffea00"  # keywords - electric yellow
+
+# Warm accents
+peach        = "#ffcb8e"  # strings, parameters - soft warm
+orange       = "#ff8c00"  # storage keywords, special punctuation
+
+# Cool accents for contrast
+light-cyan   = "#7fdbca"  # types, member variables
+sky-blue     = "#82aaff"  # imports, namespaces, constructors
+mint         = "#c3e88d"  # function builtins, raw markup, labels
+lime         = "#a6e22e"  # functions, tags, diff plus
+
+# Vibrant accents
+magenta      = "#c792ea"  # constants - purple/magenta
+hot-pink     = "#ff5370"  # return, exception, macros, regexp
+
+# Diagnostics / critical
+error-red    = "#ff5370"  # errors
