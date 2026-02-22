@@ -1,0 +1,217 @@
+# Neon City Transparent
+# A futuristic cyberpunk cityscape theme with neon-lit syntax and transparent backgrounds
+# Designed for terminals with opacity/blur - let the city lights bleed through
+#
+# Author : Helix Community
+# License: MIT
+
+# Syntax highlighting - neon signs flickering across the skyline
+"comment" = { fg = "smog", modifiers = ["italic"] }
+"comment.block.documentation" = { fg = "rain", modifiers = ["italic"] }
+
+"variable" = "neon-white"
+"variable.builtin" = { fg = "neon-pink", modifiers = ["bold"] }
+"variable.parameter" = { fg = "neon-lavender", modifiers = ["italic"] }
+"variable.other.member" = "neon-teal"
+
+"constant" = "neon-orange"
+"constant.builtin" = { fg = "neon-orange", modifiers = ["bold"] }
+"constant.builtin.boolean" = { fg = "neon-orange", modifiers = ["bold"] }
+"constant.character" = "neon-yellow"
+"constant.character.escape" = { fg = "neon-pink", modifiers = ["bold"] }
+"constant.numeric" = "neon-orange"
+"constant.numeric.integer" = "neon-orange"
+"constant.numeric.float" = "neon-orange"
+
+"type" = { fg = "neon-cyan", modifiers = ["bold"] }
+"type.builtin" = { fg = "neon-cyan", modifiers = ["bold"] }
+"type.parameter" = "neon-teal"
+"type.enum.variant" = "neon-cyan"
+
+"constructor" = { fg = "neon-cyan", modifiers = ["bold"] }
+
+"function" = { fg = "neon-blue", modifiers = ["bold"] }
+"function.builtin" = { fg = "neon-blue", modifiers = ["bold"] }
+"function.method" = { fg = "neon-blue", modifiers = ["bold"] }
+"function.macro" = { fg = "neon-violet", modifiers = ["bold", "italic"] }
+"function.special" = { fg = "neon-pink", modifiers = ["bold"] }
+
+"string" = "neon-green"
+"string.regexp" = "neon-yellow"
+"string.special" = "neon-teal"
+"string.special.symbol" = "neon-teal"
+"string.special.url" = { fg = "neon-cyan", modifiers = ["underlined"] }
+"string.special.path" = "neon-teal"
+
+"keyword" = { fg = "neon-pink", modifiers = ["bold"] }
+"keyword.control" = { fg = "neon-pink", modifiers = ["bold"] }
+"keyword.control.conditional" = { fg = "neon-pink", modifiers = ["bold"] }
+"keyword.control.repeat" = { fg = "neon-pink", modifiers = ["bold"] }
+"keyword.control.import" = { fg = "neon-violet", modifiers = ["bold"] }
+"keyword.control.return" = { fg = "neon-red", modifiers = ["bold"] }
+"keyword.control.exception" = { fg = "neon-red", modifiers = ["bold"] }
+"keyword.operator" = "neon-pink"
+"keyword.function" = { fg = "neon-pink", modifiers = ["bold", "italic"] }
+"keyword.storage" = { fg = "neon-pink", modifiers = ["bold"] }
+"keyword.storage.type" = { fg = "neon-cyan", modifiers = ["bold"] }
+"keyword.storage.modifier" = { fg = "neon-pink", modifiers = ["italic"] }
+"keyword.directive" = { fg = "neon-violet", modifiers = ["bold"] }
+
+"operator" = "neon-pink"
+"punctuation" = "steel"
+"punctuation.special" = "neon-pink"
+"punctuation.bracket" = "steel"
+"punctuation.delimiter" = "steel"
+
+"label" = { fg = "neon-teal", modifiers = ["italic"] }
+"namespace" = { fg = "neon-violet", modifiers = ["italic"] }
+"special" = "neon-cyan"
+
+"tag" = { fg = "neon-pink", modifiers = ["bold"] }
+"tag.builtin" = { fg = "neon-red", modifiers = ["bold"] }
+"attribute" = { fg = "neon-yellow", modifiers = ["italic"] }
+
+# Markup - holographic projections
+"markup.heading" = { fg = "neon-pink", modifiers = ["bold"] }
+"markup.heading.marker" = { fg = "neon-violet", modifiers = ["bold"] }
+"markup.heading.1" = { fg = "neon-pink", modifiers = ["bold"] }
+"markup.heading.2" = { fg = "neon-cyan", modifiers = ["bold"] }
+"markup.heading.3" = { fg = "neon-blue", modifiers = ["bold"] }
+"markup.heading.4" = { fg = "neon-violet", modifiers = ["bold"] }
+"markup.heading.5" = { fg = "neon-teal", modifiers = ["bold"] }
+"markup.heading.6" = { fg = "neon-lavender", modifiers = ["bold"] }
+"markup.list" = "neon-pink"
+"markup.list.unnumbered" = "neon-pink"
+"markup.list.numbered" = "neon-pink"
+"markup.bold" = { fg = "neon-orange", modifiers = ["bold"] }
+"markup.italic" = { fg = "neon-lavender", modifiers = ["italic"] }
+"markup.strikethrough" = { fg = "smog", modifiers = ["crossed_out"] }
+"markup.link.url" = { fg = "neon-cyan", modifiers = ["underlined"] }
+"markup.link.text" = "neon-blue"
+"markup.quote" = { fg = "neon-lavender", modifiers = ["italic"] }
+"markup.raw" = "neon-green"
+"markup.raw.inline" = "neon-green"
+"markup.raw.block" = "neon-green"
+
+# Diff - traffic signals on the skyway
+"diff.plus" = "neon-green"
+"diff.plus.gutter" = "neon-green"
+"diff.minus" = "neon-red"
+"diff.minus.gutter" = "neon-red"
+"diff.delta" = "neon-cyan"
+"diff.delta.gutter" = "neon-cyan"
+"diff.delta.moved" = "neon-violet"
+
+# UI - transparent, the city skyline shows through
+"ui.background" = { fg = "neon-white" }
+"ui.background.separator" = { fg = "chrome" }
+
+"ui.cursor" = { fg = "midnight", bg = "neon-pink" }
+"ui.cursor.normal" = { fg = "midnight", bg = "neon-pink" }
+"ui.cursor.insert" = { fg = "midnight", bg = "neon-green" }
+"ui.cursor.select" = { fg = "midnight", bg = "neon-cyan" }
+"ui.cursor.match" = { fg = "midnight", bg = "neon-violet" }
+"ui.cursor.primary" = { fg = "midnight", bg = "neon-pink" }
+"ui.cursor.primary.normal" = { fg = "midnight", bg = "neon-pink" }
+"ui.cursor.primary.insert" = { fg = "midnight", bg = "neon-green" }
+"ui.cursor.primary.select" = { fg = "midnight", bg = "neon-cyan" }
+
+"ui.cursorline.primary" = { }
+"ui.cursorline.secondary" = { }
+"ui.cursorcolumn.primary" = { bg = "glass" }
+
+"ui.linenr" = { fg = "chrome" }
+"ui.linenr.selected" = { fg = "neon-pink", modifiers = ["bold"] }
+
+"ui.statusline" = { fg = "neon-white" }
+"ui.statusline.inactive" = { fg = "chrome" }
+"ui.statusline.normal" = { fg = "midnight", bg = "neon-pink", modifiers = ["bold"] }
+"ui.statusline.insert" = { fg = "midnight", bg = "neon-green", modifiers = ["bold"] }
+"ui.statusline.select" = { fg = "midnight", bg = "neon-cyan", modifiers = ["bold"] }
+"ui.statusline.separator" = { fg = "chrome" }
+
+"ui.popup" = { fg = "neon-white" }
+"ui.popup.info" = { fg = "neon-cyan" }
+"ui.window" = { fg = "chrome" }
+"ui.help" = { fg = "neon-white" }
+
+"ui.text" = "neon-white"
+"ui.text.focus" = { fg = "neon-pink", modifiers = ["bold"] }
+"ui.text.inactive" = "smog"
+"ui.text.info" = "neon-cyan"
+"ui.text.directory" = { fg = "neon-blue", modifiers = ["bold"] }
+
+"ui.virtual.ruler" = { bg = "glass" }
+"ui.virtual.whitespace" = "chrome"
+"ui.virtual.indent-guide" = "chrome"
+"ui.virtual.inlay-hint" = { fg = "smog" }
+"ui.virtual.inlay-hint.parameter" = { fg = "smog" }
+"ui.virtual.inlay-hint.type" = { fg = "smog" }
+"ui.virtual.wrap" = "chrome"
+"ui.virtual.jump-label" = { fg = "neon-yellow", modifiers = ["bold", "underlined"] }
+
+"ui.selection" = { bg = "glow-pink" }
+"ui.selection.primary" = { bg = "glow-blue" }
+
+"ui.highlight" = { bg = "glow-pink", modifiers = ["bold"] }
+"ui.highlight.frameline" = { bg = "glow-pink" }
+
+"ui.menu" = { fg = "neon-white" }
+"ui.menu.selected" = { fg = "midnight", bg = "neon-pink", modifiers = ["bold"] }
+"ui.menu.scroll" = { fg = "neon-pink" }
+
+"ui.bufferline" = { fg = "smog" }
+"ui.bufferline.active" = { fg = "midnight", bg = "neon-pink", modifiers = ["bold"] }
+"ui.bufferline.background" = { }
+
+"ui.picker.header" = { fg = "neon-white" }
+"ui.picker.header.column" = { fg = "steel" }
+"ui.picker.header.column.active" = { fg = "neon-cyan", modifiers = ["bold"] }
+
+"ui.match_paren" = { fg = "neon-yellow", modifiers = ["bold"] }
+
+"ui.debug.breakpoint" = { fg = "neon-red" }
+"ui.debug.active" = { fg = "neon-orange" }
+
+# Diagnostics - warning lights across the dashboard
+"diagnostic.error" = { underline = { color = "neon-red", style = "curl" } }
+"diagnostic.warning" = { underline = { color = "neon-orange", style = "curl" } }
+"diagnostic.info" = { underline = { color = "neon-cyan", style = "curl" } }
+"diagnostic.hint" = { underline = { color = "neon-teal", style = "curl" } }
+"diagnostic.unnecessary" = { modifiers = ["dim"] }
+"diagnostic.deprecated" = { modifiers = ["crossed_out"] }
+
+"error" = { fg = "neon-red", modifiers = ["bold"] }
+"warning" = { fg = "neon-orange", modifiers = ["bold"] }
+"info" = "neon-cyan"
+"hint" = "neon-teal"
+"debug" = "neon-violet"
+
+# Rainbow brackets - city lights
+rainbow = ["neon-pink", "neon-cyan", "neon-yellow", "neon-violet", "neon-green", "neon-orange", "neon-blue"]
+
+[palette]
+# The neon spectrum - electric signs against the night sky
+neon-pink     = "#ff2eaa"  # hot magenta-pink, the dominant neon
+neon-red      = "#ff1744"  # danger red, emergency lights
+neon-orange   = "#ff6e40"  # warm neon, sunset on chrome
+neon-yellow   = "#ffea00"  # electric yellow, caution signs
+neon-green    = "#39ff14"  # radioactive green, go signals
+neon-teal     = "#18ffdc"  # aqua neon, underwater reflections
+neon-cyan     = "#00e5ff"  # cool cyan, holographic displays
+neon-blue     = "#2979ff"  # deep neon blue, police sirens
+neon-violet   = "#b388ff"  # soft violet, neon tube glow
+neon-lavender = "#d4a5ff"  # gentle lavender, distant signage
+
+# The city at night
+neon-white    = "#e8e8f0"  # slightly cool white, LCD glow
+midnight      = "#0a0a14"  # deep dark blue-black, the void
+steel         = "#8890a8"  # brushed metal, structural beams
+chrome        = "#4a5068"  # dark chrome, wet pavement
+smog          = "#5c6080"  # city haze, light pollution
+rain          = "#6e7494"  # rain-slicked surfaces
+
+# Translucent glows - for selection/highlights
+glass         = "#1a1a2e"  # tinted glass, barely visible
+glow-pink     = "#3d1040"  # pink neon reflected in puddles
+glow-blue     = "#102040"  # blue neon through rain
