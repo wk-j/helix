@@ -1,0 +1,225 @@
+# Blade Runner Transparent
+# Inspired by the rain-soaked dystopia of Blade Runner (1982) and Blade Runner 2049
+# Amber replicant eyes, cold industrial blues, and flickering neon through fog
+# Designed for terminals with opacity/blur - see the off-world colonies through the haze
+#
+# Author : Helix Community
+# License: MIT
+
+# Syntax highlighting - memories like tears in rain
+"comment" = { fg = "acid-rain", modifiers = ["italic"] }
+"comment.block.documentation" = { fg = "smog", modifiers = ["italic"] }
+
+"variable" = "bone"
+"variable.builtin" = { fg = "replicant-amber", modifiers = ["bold"] }
+"variable.parameter" = { fg = "skin", modifiers = ["italic"] }
+"variable.other.member" = "oxidized"
+
+"constant" = "ember"
+"constant.builtin" = { fg = "ember", modifiers = ["bold"] }
+"constant.builtin.boolean" = { fg = "replicant-amber", modifiers = ["bold"] }
+"constant.character" = "sunset"
+"constant.character.escape" = { fg = "replicant-amber", modifiers = ["bold"] }
+"constant.numeric" = "ember"
+"constant.numeric.integer" = "ember"
+"constant.numeric.float" = "ember"
+
+"type" = { fg = "spinner-blue", modifiers = ["bold"] }
+"type.builtin" = { fg = "spinner-blue", modifiers = ["bold"] }
+"type.parameter" = "ice"
+"type.enum.variant" = "spinner-blue"
+
+"constructor" = { fg = "spinner-blue", modifiers = ["bold"] }
+
+"function" = { fg = "hologram", modifiers = ["bold"] }
+"function.builtin" = { fg = "hologram", modifiers = ["bold"] }
+"function.method" = { fg = "hologram", modifiers = ["bold"] }
+"function.macro" = { fg = "joi-pink", modifiers = ["bold", "italic"] }
+"function.special" = { fg = "replicant-amber", modifiers = ["bold"] }
+
+"string" = "sunset"
+"string.regexp" = "replicant-amber"
+"string.special" = "oxidized"
+"string.special.symbol" = "oxidized"
+"string.special.url" = { fg = "hologram", modifiers = ["underlined"] }
+"string.special.path" = "oxidized"
+
+"keyword" = { fg = "replicant-amber", modifiers = ["bold"] }
+"keyword.control" = { fg = "replicant-amber", modifiers = ["bold"] }
+"keyword.control.conditional" = { fg = "replicant-amber", modifiers = ["bold"] }
+"keyword.control.repeat" = { fg = "replicant-amber", modifiers = ["bold"] }
+"keyword.control.import" = { fg = "joi-pink", modifiers = ["bold"] }
+"keyword.control.return" = { fg = "warning-red", modifiers = ["bold"] }
+"keyword.control.exception" = { fg = "warning-red", modifiers = ["bold"] }
+"keyword.operator" = "replicant-amber"
+"keyword.function" = { fg = "replicant-amber", modifiers = ["bold", "italic"] }
+"keyword.storage" = { fg = "replicant-amber", modifiers = ["bold"] }
+"keyword.storage.type" = { fg = "spinner-blue", modifiers = ["bold"] }
+"keyword.storage.modifier" = { fg = "replicant-amber", modifiers = ["italic"] }
+"keyword.directive" = { fg = "joi-pink", modifiers = ["bold"] }
+
+"operator" = "replicant-amber"
+"punctuation" = "rust"
+"punctuation.special" = "replicant-amber"
+"punctuation.bracket" = "rust"
+"punctuation.delimiter" = "rust"
+
+"label" = { fg = "oxidized", modifiers = ["italic"] }
+"namespace" = { fg = "joi-pink", modifiers = ["italic"] }
+"special" = "hologram"
+
+"tag" = { fg = "replicant-amber", modifiers = ["bold"] }
+"tag.builtin" = { fg = "warning-red", modifiers = ["bold"] }
+"attribute" = { fg = "sunset", modifiers = ["italic"] }
+
+# Markup - Tyrell Corporation archives
+"markup.heading" = { fg = "replicant-amber", modifiers = ["bold"] }
+"markup.heading.marker" = { fg = "ember", modifiers = ["bold"] }
+"markup.heading.1" = { fg = "replicant-amber", modifiers = ["bold"] }
+"markup.heading.2" = { fg = "spinner-blue", modifiers = ["bold"] }
+"markup.heading.3" = { fg = "hologram", modifiers = ["bold"] }
+"markup.heading.4" = { fg = "joi-pink", modifiers = ["bold"] }
+"markup.heading.5" = { fg = "oxidized", modifiers = ["bold"] }
+"markup.heading.6" = { fg = "skin", modifiers = ["bold"] }
+"markup.list" = "replicant-amber"
+"markup.list.unnumbered" = "replicant-amber"
+"markup.list.numbered" = "replicant-amber"
+"markup.bold" = { fg = "bone", modifiers = ["bold"] }
+"markup.italic" = { fg = "skin", modifiers = ["italic"] }
+"markup.strikethrough" = { fg = "acid-rain", modifiers = ["crossed_out"] }
+"markup.link.url" = { fg = "hologram", modifiers = ["underlined"] }
+"markup.link.text" = "spinner-blue"
+"markup.quote" = { fg = "skin", modifiers = ["italic"] }
+"markup.raw" = "oxidized"
+"markup.raw.inline" = "oxidized"
+"markup.raw.block" = "oxidized"
+
+# Diff - Voight-Kampff test results
+"diff.plus" = "baseline-green"
+"diff.plus.gutter" = "baseline-green"
+"diff.minus" = "warning-red"
+"diff.minus.gutter" = "warning-red"
+"diff.delta" = "spinner-blue"
+"diff.delta.gutter" = "spinner-blue"
+"diff.delta.moved" = "joi-pink"
+
+# UI - transparent, rain streaking down the window
+"ui.background" = { fg = "bone" }
+"ui.background.separator" = { fg = "bunker" }
+
+"ui.cursor" = { fg = "void", bg = "replicant-amber" }
+"ui.cursor.normal" = { fg = "void", bg = "replicant-amber" }
+"ui.cursor.insert" = { fg = "void", bg = "baseline-green" }
+"ui.cursor.select" = { fg = "void", bg = "spinner-blue" }
+"ui.cursor.match" = { fg = "void", bg = "joi-pink" }
+"ui.cursor.primary" = { fg = "void", bg = "replicant-amber" }
+"ui.cursor.primary.normal" = { fg = "void", bg = "replicant-amber" }
+"ui.cursor.primary.insert" = { fg = "void", bg = "baseline-green" }
+"ui.cursor.primary.select" = { fg = "void", bg = "spinner-blue" }
+
+"ui.cursorline.primary" = { }
+"ui.cursorline.secondary" = { }
+"ui.cursorcolumn.primary" = { bg = "smoke-glass" }
+
+"ui.linenr" = { fg = "bunker" }
+"ui.linenr.selected" = { fg = "replicant-amber", modifiers = ["bold"] }
+
+"ui.statusline" = { fg = "bone" }
+"ui.statusline.inactive" = { fg = "bunker" }
+"ui.statusline.normal" = { fg = "void", bg = "replicant-amber", modifiers = ["bold"] }
+"ui.statusline.insert" = { fg = "void", bg = "baseline-green", modifiers = ["bold"] }
+"ui.statusline.select" = { fg = "void", bg = "spinner-blue", modifiers = ["bold"] }
+"ui.statusline.separator" = { fg = "bunker" }
+
+"ui.popup" = { fg = "bone" }
+"ui.popup.info" = { fg = "hologram" }
+"ui.window" = { fg = "bunker" }
+"ui.help" = { fg = "bone" }
+
+"ui.text" = "bone"
+"ui.text.focus" = { fg = "replicant-amber", modifiers = ["bold"] }
+"ui.text.inactive" = "acid-rain"
+"ui.text.info" = "hologram"
+"ui.text.directory" = { fg = "spinner-blue", modifiers = ["bold"] }
+
+"ui.virtual.ruler" = { bg = "smoke-glass" }
+"ui.virtual.whitespace" = "bunker"
+"ui.virtual.indent-guide" = "bunker"
+"ui.virtual.inlay-hint" = { fg = "acid-rain" }
+"ui.virtual.inlay-hint.parameter" = { fg = "acid-rain" }
+"ui.virtual.inlay-hint.type" = { fg = "acid-rain" }
+"ui.virtual.wrap" = "bunker"
+"ui.virtual.jump-label" = { fg = "replicant-amber", modifiers = ["bold", "underlined"] }
+
+"ui.selection" = { bg = "glow-amber" }
+"ui.selection.primary" = { bg = "glow-blue" }
+
+"ui.highlight" = { bg = "glow-amber", modifiers = ["bold"] }
+"ui.highlight.frameline" = { bg = "glow-amber" }
+
+"ui.menu" = { fg = "bone" }
+"ui.menu.selected" = { fg = "void", bg = "replicant-amber", modifiers = ["bold"] }
+"ui.menu.scroll" = { fg = "replicant-amber" }
+
+"ui.bufferline" = { fg = "acid-rain" }
+"ui.bufferline.active" = { fg = "void", bg = "replicant-amber", modifiers = ["bold"] }
+"ui.bufferline.background" = { }
+
+"ui.picker.header" = { fg = "bone" }
+"ui.picker.header.column" = { fg = "rust" }
+"ui.picker.header.column.active" = { fg = "replicant-amber", modifiers = ["bold"] }
+
+"ui.match_paren" = { fg = "replicant-amber", modifiers = ["bold"] }
+
+"ui.debug.breakpoint" = { fg = "warning-red" }
+"ui.debug.active" = { fg = "ember" }
+
+# Diagnostics - system alerts on the Esper machine
+"diagnostic.error" = { underline = { color = "warning-red", style = "curl" } }
+"diagnostic.warning" = { underline = { color = "ember", style = "curl" } }
+"diagnostic.info" = { underline = { color = "hologram", style = "curl" } }
+"diagnostic.hint" = { underline = { color = "oxidized", style = "curl" } }
+"diagnostic.unnecessary" = { modifiers = ["dim"] }
+"diagnostic.deprecated" = { modifiers = ["crossed_out"] }
+
+"error" = { fg = "warning-red", modifiers = ["bold"] }
+"warning" = { fg = "ember", modifiers = ["bold"] }
+"info" = "hologram"
+"hint" = "oxidized"
+"debug" = "joi-pink"
+
+# Rainbow brackets - city lights through venetian blinds
+rainbow = ["replicant-amber", "spinner-blue", "joi-pink", "sunset", "hologram", "oxidized", "ember"]
+
+[palette]
+# Replicant eyes and fire - the warm spectrum
+replicant-amber = "#ffb020"  # the iconic amber eye glow
+ember           = "#e87040"  # smoldering embers, Hades landscape
+sunset          = "#d4956a"  # Los Angeles perpetual sunset
+warning-red     = "#e84040"  # retirement alerts, danger
+
+# Industrial cold - Tyrell Corporation steel
+spinner-blue    = "#5c9ece"  # LAPD spinner lights, cold sky
+ice             = "#88b8d8"  # frozen Sea Wall, pale blue
+hologram        = "#6eb8c4"  # Joi's holographic shimmer, teal
+oxidized        = "#6aaa8c"  # oxidized copper, weathered metal
+
+# Feminine warmth - Joi and Rachael
+joi-pink        = "#cc78a8"  # Joi's magenta glow, soft neon
+skin            = "#c8a8b0"  # muted rose, faded photographs
+
+# Noir atmosphere
+bone            = "#c8c0b8"  # warm off-white, old paper, cigarette smoke
+rust            = "#786860"  # corroded metal, structural decay
+acid-rain       = "#606058"  # perpetual drizzle, polluted air
+smog            = "#707068"  # thick haze, light diffusion
+bunker          = "#404040"  # concrete walls, brutalist architecture
+void            = "#0c0c10"  # the absolute dark, off-world night
+
+# Life indicators
+baseline-green  = "#50c878"  # baseline test pass, replicant clearance
+
+# Translucent atmosphere - rain on glass
+smoke-glass     = "#18161a"  # tinted window, barely there
+glow-amber      = "#30200a"  # amber neon reflected on wet streets
+glow-blue       = "#0c1828"  # spinner lights through rain
